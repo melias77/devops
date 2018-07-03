@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dk.kmd</groupId>
+	<artifactId>devops</artifactId>
+	<version>1.0.2</version>
+	<packaging>pom</packaging>
+
+
+	<name>POM - devops tools applications</name>
+
+	
+	<prerequisites>
+		<maven>3.3.3</maven>
+	</prerequisites>
+
+	<properties>
+		<java.source.version>1.8</java.source.version>
+		<java.target.version>1.8</java.target.version>
+		<junit.version>4.12</junit.version>
+	</properties>	
+
+	<developers>
+		<developer>
+			<id>1</id>
+			<name>Morten</name>
+			<email>mnb@kmd.dk</email>
+			<organization>KMD</organization>
+			<organizationUrl>http://www.kmd.dk</organizationUrl>
+		</developer>
+	</developers>
+
+	<organization>
+		<name>KMD</name>
+		<url>http://www.kmd.dk</url>
+	</organization>
+
+	<scm>
+		<connection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/devops/trunk</connection>
+		<developerConnection>scm:http://svn.kmd.dk:3690/svn/devops/source/projects/devops/trunk</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>kmdw7315a</id>
+			<name>kmdw7315a-releases</name>
+			<url>http://artifactory.kmd.dk/artifactory/plugins-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>kmdw7315a</id>
+			<name>kmdw7315a-snapshots</name>
+			<url>http://artifactory.kmd.dk/artifactory/plugins-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://bamboo.kmd.dk/</url>
+		<notifiers>
+			<notifier>
+				<address>mnb@kmd.dk</address>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.source.version}</source>
+					<target>${java.target.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<modules>
+		<module>maven-envconfiguration-plugin</module>
+		<module>poms</module>
+	</modules>
+</project>

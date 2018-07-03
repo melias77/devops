@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dk.kmd.devops.build</groupId>
+	<artifactId>master-pom-resources</artifactId>
+	<version>1.0.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>dk.kmd.devops.build</groupId>
+		<artifactId>poms</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+	</parent>
+
+	<name>JAR - Master pom resources</name>
+
+	<properties>
+		<url.location>${project.groupId}/${project.artifactId}/${project.version}</url.location>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+	</properties>
+
+	<url>${httpHome}/${url.location}</url>
+
+	<scm>
+		<connection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/trunk/poms/master-build-tools</connection>
+		<developerConnection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/master-build-tools</developerConnection>
+	</scm>
+
+	<organization>
+		<name>KMD</name>
+		<url>http://www.kmd.dk</url>
+	</organization>
+	
+</project>
+

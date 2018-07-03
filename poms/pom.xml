@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>dk.kmd</groupId>
+		<artifactId>devops</artifactId>
+		<version>1.0.2</version>
+	</parent>
+	
+	
+	<groupId>dk.kmd.devops.build</groupId>
+	<artifactId>poms</artifactId>
+	<version>1.0.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>POM - General pom definitions</name>
+
+		
+	<distributionManagement>
+		<repository>
+			<id>kmdw7315a</id>
+			<name>kmdw7315a-releases</name>
+			<url>http://artifactory.kmd.dk/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>kmdw7315a</id>
+			<name>kmdw7315a-snapshots</name>
+			<url>http://artifactory.kmd.dk/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	<scm>
+		<connection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/trunk</connection>
+		<developerConnection>scm:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/trunk</developerConnection>
+	</scm>
+
+	<modules>
+		<module>master-pom</module>
+		<module>master-pom-resources</module>
+	</modules>
+</project>

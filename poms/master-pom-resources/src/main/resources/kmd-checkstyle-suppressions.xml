@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <!-- JPA's Entity_s -->
+    <suppress files="^.+_\.java$" checks="." />
+
+    <!-- JPA's Entity Builders -->
+    <suppress files="^.+EntityBuilder\.java$" checks="VisibilityModifier" />
+    <suppress files="^.+EntityBuilder\.java$" checks="HiddenField" />
+
+    <!-- Unit and integration tests -->
+    <suppress files="^.+(IT|Test)\.java$" checks="InnerAssignment" />
+    <suppress files="^.+(IT|Test)\.java$" checks="MagicNumber" />
+    <suppress files="^.+(IT|Test)\.java$" checks="VisibilityModifier" />
+    <suppress files="^.+(IT|Test)\.java$" checks="IllegalCatch" />
+    <suppress files="^.+(IT|Test)\.java$" checks="ClassDataAbstractionCoupling" />
+</suppressions>

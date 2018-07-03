@@ -1,0 +1,304 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dk.kmd.devops.build</groupId>
+	<artifactId>master-pom</artifactId>
+	<version>1.0.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>dk.kmd.devops.build</groupId>
+		<artifactId>poms</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+	</parent>
+
+	<name>POM - Master POM for all builds</name>
+
+	<properties>
+		<url.location>${project.groupId}/${project.artifactId}/${project.version}</url.location>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<url>${httpHome}/${url.location}</url>
+
+	<scm>
+		<connection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/trunk/poms/master-pom</connection>
+		<developerConnection>scm:svn:http://svn.kmd.dk:3690/svn/devops/source/projects/poms/master-pom</developerConnection>
+	</scm>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Test dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<organization>
+		<name>KMD</name>
+		<url>http://www.kmd.dk</url>
+	</organization>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.7</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.17</version>
+					<dependencies>
+						<dependency>
+							<groupId>dk.kmd.devops.build</groupId>
+							<artifactId>master-pom-resources</artifactId>
+							<version>1.0.2-SNAPSHOT</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>1.4.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>3.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.16</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.16</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>failsafe-maven-plugin</artifactId>
+					<version>2.16</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.0.201403182114</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>[${maven.version},)</version>
+									<message>Check for Maven version ${maven.version} failed.
+										Update your Maven install.</message>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine> -XX:MaxPermSize=256m -Xmx2048m -Xms128m -Xss1m</argLine>
+					<excludes>
+						<exclude>**/*IntegrationsTest.java</exclude>
+						<exclude>**/*AcceptanceTest.java</exclude>
+						<exclude>**/*ComponentTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<suppressionsLocation>kmd-checkstyle-suppressions.xml</suppressionsLocation>
+							<configLocation>kmd-checkstyle.xml</configLocation>
+							<consoleOutput>true</consoleOutput>
+							<failsOnError>false</failsOnError>
+						</configuration>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetJdk>1.8</targetJdk>
+					<excludeRoots>
+						<excludeRoot>target/generated-sources</excludeRoot>
+					</excludeRoots>
+					<excludes>
+						<exclude>/**/*.java</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>sonar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+						<inherited>false</inherited>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<sonar.host.url>http://sonar:9001</sonar.host.url>
+				<sonar.jdbc.url>jdbc:oracle:thin:@sonar:1521/XE</sonar.jdbc.url>
+				<sonar.jdbc.username>sonar</sonar.jdbc.username>
+				<sonar.jdbc.password>sonar</sonar.jdbc.password>
+				<sonar.analysis.mode>incremental</sonar.analysis.mode>
+				<sonar.language>java</sonar.language>
+				<sonar.issuesReport.console.enable>true</sonar.issuesReport.console.enable>
+				<!-- uncomment when quality gate is accepted -->
+				<!-- <sonar.qualitygate></sonar.qualitygate> -->
+			</properties>
+		</profile>
+	</profiles>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<effort>Max</effort>
+					<!-- Reports all bugs (other values are medium and max) -->
+					<threshold>Low</threshold>
+					<xmlOutput>true</xmlOutput>
+					<jvmArgs>-Xms256m -Xss4m -XX:MaxPermSize=512m</jvmArgs>
+					<maxHeap>2048</maxHeap>
+					<timeout>4000000</timeout>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
+
